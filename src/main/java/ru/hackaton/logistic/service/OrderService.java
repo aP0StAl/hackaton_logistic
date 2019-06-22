@@ -7,6 +7,8 @@ import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.repository.OrderRepository;
 import ru.hackaton.logistic.request.OrderSaveRequest;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -34,5 +36,9 @@ public class OrderService {
                 .build();
 
         return orderRepository.save(o);
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 }
