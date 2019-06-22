@@ -21,7 +21,7 @@ public class OrderRouteJoinService {
 
         if (!rt.getIsOpen()) {
             joinWithStatus(ord, rt, OrderJoinStatus.DECLINED);
-        } else if (ord.getOwnerUserId() == rt.getOwnerUserId()) {
+        } else if (ord.getUsr().getId() == rt.getOwnerUserId()) {
             joinWithStatus(ord, rt, OrderJoinStatus.ACCEPTED);
         } else {
             joinWithStatus(ord, rt, OrderJoinStatus.PENDING);

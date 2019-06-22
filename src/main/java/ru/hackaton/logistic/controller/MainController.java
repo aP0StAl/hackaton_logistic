@@ -9,10 +9,7 @@ import ru.hackaton.logistic.request.CarSaveRequest;
 import ru.hackaton.logistic.request.LoginRequest;
 import ru.hackaton.logistic.request.OrderSaveRequest;
 import ru.hackaton.logistic.request.RouteSaveRequest;
-import ru.hackaton.logistic.service.CarService;
-import ru.hackaton.logistic.service.OrderService;
-import ru.hackaton.logistic.service.RouteService;
-import ru.hackaton.logistic.service.UsrService;
+import ru.hackaton.logistic.service.*;
 
 import java.util.List;
 
@@ -32,6 +29,11 @@ public class MainController {
     @GetMapping("/order_list")
     public List<Order> getAllOrders(){
         return orderService.getAllOrders();
+    }
+
+    @GetMapping("/my_order_list")
+    public List<Order> getMyOrders(@RequestHeader("user_id") Long userId){
+        return orderService.getAllOrders(userId);
     }
 
     @PostMapping("/route")

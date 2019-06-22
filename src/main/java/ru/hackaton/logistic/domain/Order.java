@@ -24,7 +24,6 @@ public class Order{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long ownerUserId;
     private String name;
     private String product;
     private Double volume;

@@ -10,6 +10,7 @@ import ru.hackaton.logistic.repository.UsrRepository;
 import ru.hackaton.logistic.request.OrderSaveRequest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,6 @@ public class OrderService {
         }
 
         Order o = Order.builder()
-                .ownerUserId(order.getOwnerUserId())
                 .loadingPoint(loadingPoint)
                 .destinationPoint(destinationPoint)
                 .volume(order.getVolume())
@@ -51,5 +51,10 @@ public class OrderService {
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
+    }
+
+    public List<Order> getAllOrders(Long userId) {
+        List<Order> orders = getAllOrders();
+        return orders.stream().filter(o -> userId.equals(o.getUsr().getId())).collect(Collectors.toList());
     }
 }
