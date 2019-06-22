@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hackaton.logistic.domain.Car;
 import ru.hackaton.logistic.domain.GeoPoint;
+import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Route;
 import ru.hackaton.logistic.repository.CarRepository;
 import ru.hackaton.logistic.repository.RouteRepository;
 import ru.hackaton.logistic.request.RouteSaveRequest;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +32,10 @@ public class RouteService {
                 .lon(route.getToPoint().get(1))
                 .build();
 
-        Car car = carRepository.findById(route.getCarId()).orElse(null);
+        Car car = null;
+        if(route.getCarId() != null) {
+            car = carRepository.findById(route.getCarId()).orElse(null);
+        }
 
         Route r = Route.builder()
                 .loadingPoint(loadingPoint)
@@ -44,5 +50,9 @@ public class RouteService {
                 .build();
 
         return routeRepository.save(r);
+    }
+
+    public List<Route> getAllRoutes() {
+        return routeRepository.findAll();
     }
 }

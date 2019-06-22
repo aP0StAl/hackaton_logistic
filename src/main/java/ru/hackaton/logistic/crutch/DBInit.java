@@ -9,21 +9,18 @@ import ru.hackaton.logistic.repository.OrderRepository;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-
-import static org.springframework.transaction.support.TransactionSynchronizationManager.getResource;
 
 @Service
 @RequiredArgsConstructor
 public class DBInit {
     private final OrderRepository orderRepository;
 
+    @PostConstruct
     public void initAll(){
-
+        initOrders();
     }
 
-    @PostConstruct
-    public void initOrders(){
+    private void initOrders(){
         ObjectMapper mapper = new ObjectMapper();
         try {
             ClassLoader classLoader = getClass().getClassLoader();
@@ -33,6 +30,8 @@ public class DBInit {
                 orderRepository.save(order);
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e){
             e.printStackTrace();
         }
     }

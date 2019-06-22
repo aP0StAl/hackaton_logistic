@@ -6,6 +6,8 @@ import ru.hackaton.logistic.domain.Car;
 import ru.hackaton.logistic.repository.CarRepository;
 import ru.hackaton.logistic.request.CarSaveRequest;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CarService {
@@ -19,5 +21,9 @@ public class CarService {
                 .build();
 
         return carRepository.save(c);
+    }
+
+    public List<Car> getAll() {
+        return carRepository.findAll();
     }
 }
