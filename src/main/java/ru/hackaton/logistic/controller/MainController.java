@@ -1,13 +1,11 @@
 package ru.hackaton.logistic.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Route;
 import ru.hackaton.logistic.domain.RouteMap;
+import ru.hackaton.logistic.request.OrderSaveRequest;
 import ru.hackaton.logistic.service.GoogleMapService;
 import ru.hackaton.logistic.service.OrderService;
 
@@ -40,7 +38,8 @@ public class MainController {
     }
 
     @PostMapping("/save_order")
-    public Long save_order(Order order){
+    public Long save_order(@RequestBody OrderSaveRequest order){
+        System.out.println("TEst");
         return orderService.saveOrder(order).getId();
     }
 }

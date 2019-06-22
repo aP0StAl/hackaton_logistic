@@ -6,4 +6,6 @@ import lombok.Data;
 public class OrderSaveRequest {
     private String loadingPointName;
     private String destinationPointName;
+    private Double volume;
+    private Double weight;
 }
