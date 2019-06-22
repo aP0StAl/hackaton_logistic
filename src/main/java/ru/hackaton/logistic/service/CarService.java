@@ -3,7 +3,6 @@ package ru.hackaton.logistic.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hackaton.logistic.domain.Car;
-import ru.hackaton.logistic.domain.CarRepository;
 import ru.hackaton.logistic.repository.CarRepository;
 import ru.hackaton.logistic.request.CarSaveRequest;
 
@@ -15,7 +14,8 @@ public class CarService {
     public Car saveCar(CarSaveRequest car) {
         Car c = Car.builder()
                 .maxWeight(car.getMaxWeight())
-                .maxVolume(car.getMaxVolume());
+                .maxVolume(car.getMaxVolume())
+                .build();
 
         return carRepository.save(c);
     }

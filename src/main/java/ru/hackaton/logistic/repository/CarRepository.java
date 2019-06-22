@@ -1,10 +1,11 @@
-package ru.hackaton.logistic.domain;
+package ru.hackaton.logistic.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import ru.hackaton.logistic.domain.Car;
 import ru.hackaton.logistic.utils.RandomString;
 import ru.hackaton.logistic.utils.Utils;
 
