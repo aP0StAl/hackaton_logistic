@@ -37,6 +37,7 @@ public class OrderService {
         }
 
         Order o = Order.builder()
+                .ownerUserId(order.getOwnerUserId())
                 .loadingPoint(loadingPoint)
                 .destinationPoint(destinationPoint)
                 .volume(order.getVolume())
