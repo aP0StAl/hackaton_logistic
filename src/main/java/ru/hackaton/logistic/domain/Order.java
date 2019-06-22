@@ -34,6 +34,10 @@ public class Order {
     @JoinColumn(name="destination_point_id")
     private GeoPoint destinationPoint;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="usr_id")
+    private Usr usr;
+
     public static Order getRandom(){
         Order result = new Order();
         result.setName(randomString(3, RandomString.upper) + randomString(10, RandomString.digits));
