@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.hackaton.logistic.utils.RandomString;
-import ru.hackaton.logistic.utils.Utils;
 
 import javax.persistence.*;
-
-import static ru.hackaton.logistic.utils.RandomString.randomString;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -17,7 +14,7 @@ import static ru.hackaton.logistic.utils.RandomString.randomString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="orders")
-public class Order {
+public class Order{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,6 +22,7 @@ public class Order {
     private String product;
     private Double volume;
     private Double weight;
+    private LocalDate expirationDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="loading_point_id")
@@ -37,13 +35,4 @@ public class Order {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="usr_id")
     private Usr usr;
-
-    public static Order getRandom(){
-        Order result = new Order();
-        result.setName(randomString(3, RandomString.upper) + randomString(10, RandomString.digits));
-        result.setProduct("Название продукта "+randomString(5, RandomString.digits));
-        result.setVolume(Utils.round(Math.random() * 15, 2));
-        result.setWeight(Utils.round(Math.random() * 7, 2));
-        return result;
-    }
 }
