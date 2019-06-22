@@ -18,7 +18,7 @@ public class MainController {
 
     @GetMapping("/hi")
     public String hello(){
-        return "hello, world!";
+        return "Привет!";
     }
 
     @GetMapping("/google_route/{p1}/{p2}/")
