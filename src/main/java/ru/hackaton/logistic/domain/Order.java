@@ -29,6 +29,10 @@ public class Order{
     private OrderJoinStatus joinStatus;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="route_id")
+    private Route route;
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="loading_point_id")
     private GeoPoint loadingPoint;
 

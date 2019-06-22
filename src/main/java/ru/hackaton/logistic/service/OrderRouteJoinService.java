@@ -30,6 +30,7 @@ public class OrderRouteJoinService {
 
     private void joinWithStatus(Order ord, Route rt, OrderJoinStatus status) {
         ord.setJoinStatus(status);
+        ord.setRoute(rt);
         orderRepository.save(ord);
     }
 }
