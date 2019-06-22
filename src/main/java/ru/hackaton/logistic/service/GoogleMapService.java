@@ -26,7 +26,7 @@ public class GoogleMapService {
         try {
             ChromeOptions options = new ChromeOptions();
             options.setHeadless(true);
-            driver = new ChromeDriver(options);
+            //driver = new ChromeDriver(options);
             log.info("ChromeDriver успешно запущен");
         } catch (Exception e) {
             log.error("Не удалось запустить ChromeDriver");

@@ -14,16 +14,16 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class MainController {
-    private final GoogleMapService googleMapService;
+    //private final GoogleMapService googleMapService;
 
     @GetMapping("/hi")
     public String hello(){
-        return "hello, world!";
+        return "hi";
     }
 
     @GetMapping("/google_route/{p1}/{p2}/")
     public RouteMap getGoogleRoute(@PathVariable String p1, @PathVariable String p2){
-        return googleMapService.getRoute(p1, p2);
+        //return googleMapService.getRoute(p1, p2);
     }
 
     @GetMapping("/random_route")
