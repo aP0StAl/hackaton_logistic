@@ -13,6 +13,7 @@ public class CarService {
 
     public Car saveCar(CarSaveRequest car) {
         Car c = Car.builder()
+                .ownerId(car.getOwnerId())
                 .maxWeight(car.getMaxWeight())
                 .maxVolume(car.getMaxVolume())
                 .build();
