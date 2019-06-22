@@ -4,14 +4,29 @@ import lombok.Data;
 import ru.hackaton.logistic.utils.RandomString;
 import ru.hackaton.logistic.utils.Utils;
 
+import javax.persistence.*;
+
 import static ru.hackaton.logistic.utils.RandomString.randomString;
 
 @Data
+@Entity
+@Table(name="orders")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
     private String product;
     private Double volume;
     private Double weight;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="loading_point_id")
+    private GeoPoint LoadingPoint;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="destination_point_id")
+    private GeoPoint DestinationPoint;
 
     public static Order getRandom(){
         Order result = new Order();

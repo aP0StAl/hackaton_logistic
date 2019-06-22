@@ -3,10 +3,13 @@ package ru.hackaton.logistic.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Route;
 import ru.hackaton.logistic.domain.RouteMap;
 import ru.hackaton.logistic.service.GoogleMapService;
+import ru.hackaton.logistic.service.OrderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainController {
     private final GoogleMapService googleMapService;
+    private final OrderService orderService;
 
     @GetMapping("/hi")
     public String hello(){
@@ -33,5 +37,10 @@ public class MainController {
             result.add(Route.getRandom());
         }
         return result;
+    }
+
+    @PostMapping("/save_order")
+    public Long save_order(Order order){
+        return orderService.saveOrder(order).getId();
     }
 }
