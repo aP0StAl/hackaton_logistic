@@ -1,19 +1,18 @@
 package ru.hackaton.logistic.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.hackaton.logistic.domain.Car;
 import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Route;
 import ru.hackaton.logistic.request.CarSaveRequest;
+import ru.hackaton.logistic.request.LoginRequest;
 import ru.hackaton.logistic.request.OrderSaveRequest;
 import ru.hackaton.logistic.request.RouteSaveRequest;
 import ru.hackaton.logistic.service.CarService;
 import ru.hackaton.logistic.service.OrderService;
 import ru.hackaton.logistic.service.RouteService;
+import ru.hackaton.logistic.service.UsrService;
 
 import java.util.List;
 
@@ -23,10 +22,11 @@ public class MainController {
     private final OrderService orderService;
     private final RouteService routeService;
     private final CarService carService;
+    private final UsrService usrService;
 
     @PostMapping("/order")
-    public Long save_order(@RequestBody OrderSaveRequest order){
-        return orderService.saveOrder(order).getId();
+    public Long save_order(@RequestHeader("user_id") Long user_id, @RequestBody OrderSaveRequest order){
+        return orderService.saveOrder(order, user_id).getId();
     }
 
     @GetMapping("/order_list")
@@ -52,5 +52,10 @@ public class MainController {
     @GetMapping("/car_list")
     public List<Car> getAllCars(){
         return carService.getAll();
+    }
+
+    @PostMapping("/login")
+    public Long login(LoginRequest loginRequest){
+        return usrService.login(loginRequest);
     }
 }
