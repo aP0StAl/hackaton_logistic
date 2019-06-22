@@ -31,4 +31,8 @@ public class Order{
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="destination_point_id")
     private GeoPoint destinationPoint;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="usr_id")
+    private Usr usr;
 }
