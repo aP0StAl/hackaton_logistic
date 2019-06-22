@@ -24,7 +24,6 @@ public class OrderService {
                 .volume(order.getVolume())
                 .weight(order.getWeight())
                 .build();
-
        return orderRepository.save(o);
     }
 }
