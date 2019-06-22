@@ -1,0 +1,50 @@
+[
+  {
+    "id": 16,
+    "ownerUserId": null,
+    "loadingPoint": {
+      "id": 18,
+      "name": "Россия, Республика Татарстан, Казань ",
+      "address": null,
+      "lat": 55.796289,
+      "lon": 49.108795
+    },
+    "destinationPoint": {
+      "id": 17,
+      "name": "Россия, Республика Татарстан, Казань ",
+      "address": null,
+      "lat": 55.608089,
+      "lon": 49.298591
+    },
+    "car": null,
+    "isOpen": null,
+    "isStraight": null,
+    "deliveryRadius": null,
+    "costKg": null,
+    "costLt": null
+  },
+  {
+    "id": 19,
+    "ownerUserId": null,
+    "loadingPoint": {
+      "id": 21,
+      "name": "Россия, Московская область, Королёв ",
+      "address": null,
+      "lat": 55.922212,
+      "lon": 37.854629
+    },
+    "destinationPoint": {
+      "id": 20,
+      "name": "Улица Фомичёвой",
+      "address": null,
+      "lat": 55.857397,
+      "lon": 37.443506
+    },
+    "car": null,
+    "isOpen": null,
+    "isStraight": null,
+    "deliveryRadius": null,
+    "costKg": null,
+    "costLt": null
+  }
+]
