@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class OrderSaveRequest {
+    private Long ownerUserId;
     private List<Double> fromPoint;
     private String fromTitle;
     private List<Double> toPoint;
