@@ -19,7 +19,9 @@ public class OrderRouteJoinService {
         Order ord = orderRepository.findById(joinRequest.getOrderId()).orElse(null);
         Route rt = routeRepository.findById(joinRequest.getRouteId()).orElse(null);
 
-        if (ord.getOwnerUserId() == rt.getOwnerUserId()) {
+        if (!rt.getIsOpen()) {
+            joinWithStatus(ord, rt, OrderJoinStatus.DECLINED);
+        } else if (ord.getOwnerUserId() == rt.getOwnerUserId()) {
             joinWithStatus(ord, rt, OrderJoinStatus.ACCEPTED);
         } else {
             joinWithStatus(ord, rt, OrderJoinStatus.PENDING);
@@ -30,6 +32,7 @@ public class OrderRouteJoinService {
 
     private void joinWithStatus(Order ord, Route rt, OrderJoinStatus status) {
         ord.setJoinStatus(status);
+        ord.setRoute(rt);
         orderRepository.save(ord);
     }
 }
