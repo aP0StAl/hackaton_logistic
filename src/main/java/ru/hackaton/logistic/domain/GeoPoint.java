@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 
@@ -21,27 +22,4 @@ public class GeoPoint {
     private String address;
     private Double lat;
     private Double lon;
-
-    public GeoPoint(double lat, double lon) {
-        this.lat = lat;
-        this.lon = lon;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        long temp;
-        temp = Double.doubleToLongBits(lat);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(lon);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
 }
