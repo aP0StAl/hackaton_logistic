@@ -25,7 +25,8 @@ public class MainController {
 
     @GetMapping("/google_route/{p1}/{p2}/")
     public RouteMap getGoogleRoute(@PathVariable String p1, @PathVariable String p2){
-        return googleMapService.getRoute(p1, p2);
+        //return googleMapService.getRoute(p1, p2);
+        return null;
     }
 
     @GetMapping("/random_route")
