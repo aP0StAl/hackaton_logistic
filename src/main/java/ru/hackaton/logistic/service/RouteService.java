@@ -35,7 +35,7 @@ public class RouteService {
                 .loadingPoint(loadingPoint)
                 .destinationPoint(destinationPoint)
                 .car(car)
-                .ownerUserId(route.getOwnerUserid())
+                .ownerUserId(route.getOwnerUserId())
                 .isOpen(route.getIsOpen())
                 .isStraight(route.getIsStraight())
                 .deliveryRadius(route.getDeliveryRadius())
