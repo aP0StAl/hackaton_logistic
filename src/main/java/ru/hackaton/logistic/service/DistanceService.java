@@ -1,5 +1,6 @@
 package ru.hackaton.logistic.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hackaton.logistic.domain.GeoPoint;
 
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class DistanceService {
     public double getDistance(GeoPoint a, GeoPoint b){
         return distOnSphere(a, b);
@@ -19,7 +21,7 @@ public class DistanceService {
         return ac * 6371;
     }
 
-    private Map<GeoPoint, Map<GeoPoint, Double>> getDistanceMap(List<GeoPoint> points){
+    public Map<GeoPoint, Map<GeoPoint, Double>> getDistanceMap(List<GeoPoint> points){
         Map<GeoPoint, Map<GeoPoint, Double>> distanceMap = new HashMap<>();
         for (GeoPoint p1 : points) {
             Map<GeoPoint, Double> subMap = new HashMap<>();
