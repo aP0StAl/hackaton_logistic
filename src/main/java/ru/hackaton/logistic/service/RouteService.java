@@ -52,6 +52,7 @@ public class RouteService {
                 .deliveryRadius(route.getDeliveryRadius())
                 .costKg(route.getCostKg())
                 .costLt(route.getCostLt())
+                .usr(usr)
                 .build();
 
         return routeRepository.save(r);

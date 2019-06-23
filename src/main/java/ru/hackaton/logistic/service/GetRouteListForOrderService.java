@@ -2,7 +2,6 @@ package ru.hackaton.logistic.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.hackaton.logistic.domain.GeoPoint;
 import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Route;
 import ru.hackaton.logistic.repository.OrderRepository;
@@ -20,10 +19,14 @@ public class GetRouteListForOrderService {
     private final DistanceService distanceService;
     private final RouteService routeService;
 
-    public List<Route> getFittingRoutes(GetRouteListForOrderRequest req) {
-        Order ord = orderRepository.findById(req.getOrderId()).orElse(null);
-
-        List<Route> userRoutesList = routeService.getAllRoutes(ord.getUsr().getId());
+    public List<Route> getFittingRoutes(Long orderId) {
+        Order ord = orderRepository.findById(orderId).orElse(null);
+        List<Route> userRoutesList;
+        try {
+            userRoutesList = routeService.getAllRoutes(ord.getUsr().getId());
+        } catch (Exception e) {
+            userRoutesList = new ArrayList<>();
+        }
         List<Route> openRoutesList = routeRepository.findAllByIsOpen(true);
 
         List<Route> userFittingList = new ArrayList<>();
@@ -35,7 +38,7 @@ public class GetRouteListForOrderService {
         }
 
         for (Route rt : openRoutesList) {
-            if (rt.getUsr().getId().longValue() != ord.getUsr().getId() && isFitting(ord, rt)) {
+            if (((ord.getUsr() == null) || (rt.getUsr().getId() != ord.getUsr().getId())) && isFitting(ord, rt)) {
                 userFittingList.add(rt);
             }
         }
