@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.hackaton.logistic.domain.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,8 @@ public class CommisVoyageurTaskService {
             cur = path[mask][cur];
             mask = mask & (~(1 << last));
         }
+
+        Collections.reverse(answerPath);
 
         assert(answerPath.size() != n);
 
