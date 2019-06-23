@@ -2,6 +2,7 @@ package ru.hackaton.logistic.domain;
 
 import lombok.*;
 import org.hibernate.annotations.GeneratorType;
+import ru.hackaton.logistic.response.RouteWrapper;
 import ru.hackaton.logistic.utils.RandomString;
 import ru.hackaton.logistic.utils.Utils;
 

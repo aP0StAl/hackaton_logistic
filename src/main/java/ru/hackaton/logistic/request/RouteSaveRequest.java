@@ -4,11 +4,6 @@ import lombok.Data;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-
 @Data
 public class RouteSaveRequest {
     private List<Double> fromPoint; //Точка A

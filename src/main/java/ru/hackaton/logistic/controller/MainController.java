@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hackaton.logistic.domain.*;
 import ru.hackaton.logistic.request.*;
+import ru.hackaton.logistic.response.RouteWrapper;
 import ru.hackaton.logistic.service.*;
 
 import java.util.List;
@@ -47,13 +48,13 @@ public class MainController {
     }
 
     @GetMapping("/route_list")
-    public List<Route> getAllRoutes(){
-        return routeService.getAllRoutes();
+    public List<RouteWrapper> getAllRoutes(){
+        return routeService.wrapList(routeService.getAllRoutes());
     }
 
     @GetMapping("/my_route_list")
-    public List<Route> getMyRoutes(@RequestHeader("user_id") Long userId){
-        return routeService.getAllRoutes(userId);
+    public List<RouteWrapper> getMyRoutes(@RequestHeader("user_id") Long userId){
+        return routeService.wrapList(routeService.getAllRoutes(userId));
     }
 
     @PostMapping("/car")

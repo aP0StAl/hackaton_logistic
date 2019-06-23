@@ -9,6 +9,7 @@ import ru.hackaton.logistic.repository.OrderRepository;
 import ru.hackaton.logistic.repository.RouteRepository;
 import ru.hackaton.logistic.repository.UsrRepository;
 import ru.hackaton.logistic.request.RouteSaveRequest;
+import ru.hackaton.logistic.response.RouteWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class RouteService {
     private final CarRepository carRepository;
     private final UsrRepository usrRepository;
     private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
     public Route saveRoute(RouteSaveRequest route, Long userId) {
 
@@ -51,7 +53,7 @@ public class RouteService {
                 .loadingPoint(loadingPoint)
                 .destinationPoint(destinationPoint)
                 .car(car)
-                .isOpen(route.getIsOpen())
+                .isOpen(route.getIsOpen() == null ? true : route.getIsOpen())
                 .isStraight(route.getIsStraight())
                 .deliveryRadius(route.getDeliveryRadius())
                 .costKg(route.getCostKg())
@@ -114,6 +116,19 @@ public class RouteService {
     public List<Route> getAllRoutes(Long userId) {
         List<Route> routes = getAllRoutes();
         return routes.stream().filter(o -> o.getUsr() != null && userId.equals(o.getUsr().getId())).collect(Collectors.toList());
+    }
+
+    public RouteWrapper wrapRoute(Route route){
+        List<Order> orders = orderService.getAcceptedOrdersByRoute(route.getId());
+        RouteWrapper routeWrapper = new RouteWrapper(route);
+        routeWrapper.setAcceptedCount((long)orders.size());
+        routeWrapper.setAcceptedVolume(orders.stream().mapToDouble(Order::getVolume).sum());
+        routeWrapper.setAcceptedWeight(orders.stream().mapToDouble(Order::getWeight).sum());
+        return routeWrapper;
+    }
+
+    public List<RouteWrapper> wrapList(List<Route> routes){
+        return routes.stream().map(this::wrapRoute).collect(Collectors.toList());
     }
 
 }

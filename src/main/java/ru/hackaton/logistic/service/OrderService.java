@@ -71,4 +71,14 @@ public class OrderService {
                 !OrderJoinStatus.DECLINED.equals(o.getJoinStatus())
         ).collect(Collectors.toList());
     }
+
+    public List<Order> getAcceptedOrdersByRoute(Long routeId){
+        List<Order> orders = getAllOrders();
+        orders = orders.stream().filter(o ->
+                (o.getRoute() != null) && (routeId.equals(o.getRoute().getId()))
+        ).collect(Collectors.toList());
+        return orders.stream().filter(o ->
+                OrderJoinStatus.ACCEPTED.equals(o.getJoinStatus())
+        ).collect(Collectors.toList());
+    }
 }

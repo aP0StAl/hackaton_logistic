@@ -24,9 +24,9 @@ public class DBInit {
     private final UsrRepository usrRepository;
     private final CarRepository carRepository;
 
-    @PostConstruct
+    //@PostConstruct
     public void initAll(){
-        initCars();
+        //initCars();
         //initOrders();
         //initRoutes();
         //initUsers();
