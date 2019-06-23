@@ -39,13 +39,18 @@ public class MainController {
     }
 
     @PostMapping("/route")
-    public Long save_route(@RequestBody RouteSaveRequest route){
-        return routeService.saveRoute(route).getId();
+    public Long save_route(@RequestHeader("user_id") Long userId, @RequestBody RouteSaveRequest route){
+        return routeService.saveRoute(route, userId).getId();
     }
 
     @GetMapping("/route_list")
     public List<Route> getAllRoutes(){
         return routeService.getAllRoutes();
+    }
+
+    @GetMapping("/my_route_list")
+    public List<Route> getMyRoutes(@RequestHeader("user_id") Long userId){
+        return routeService.getAllRoutes(userId);
     }
 
     @PostMapping("/car")

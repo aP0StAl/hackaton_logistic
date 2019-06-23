@@ -20,8 +20,6 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; //Айди маршрута
 
-    private Long ownerUserId; //Айди владельца
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="loading_point_id")
     private GeoPoint loadingPoint; //Точка А
@@ -40,4 +38,9 @@ public class Route {
 
     private Double costKg; //Стоимость перевозки за кг в руб
     private Double costLt; //Стоимость перевозки за литр в руб
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="usr_id")
+    private Usr usr;
+
 }

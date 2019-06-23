@@ -1,7 +1,6 @@
 [
   {
     "id": 16,
-    "ownerUserId": null,
     "loadingPoint": {
       "id": 18,
       "name": "Россия, Республика Татарстан, Казань ",
@@ -25,7 +24,6 @@
   },
   {
     "id": 19,
-    "ownerUserId": null,
     "loadingPoint": {
       "id": 21,
       "name": "Россия, Московская область, Королёв ",
