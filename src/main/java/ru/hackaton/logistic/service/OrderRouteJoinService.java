@@ -19,7 +19,7 @@ public class OrderRouteJoinService {
         Order ord = orderRepository.findById(joinRequest.getOrderId()).orElse(null);
         Route rt = routeRepository.findById(joinRequest.getRouteId()).orElse(null);
 
-        if (!rt.getIsOpen()) {
+        if ((rt.getIsOpen() == null)||(!rt.getIsOpen())) {
             joinWithStatus(ord, rt, OrderJoinStatus.DECLINED);
         } else if (ord.getUsr().getId().longValue() == rt.getUsr().getId().longValue()) {
             joinWithStatus(ord, rt, OrderJoinStatus.ACCEPTED);

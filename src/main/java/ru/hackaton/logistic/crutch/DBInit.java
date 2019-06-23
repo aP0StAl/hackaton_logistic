@@ -21,7 +21,7 @@ public class DBInit {
     private final RouteRepository routeRepository;
     private final UsrRepository usrRepository;
 
-    @PostConstruct
+    //@PostConstruct
     public void initAll(){
         initOrders();
         initRoutes();

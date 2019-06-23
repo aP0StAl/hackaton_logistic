@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.hackaton.logistic.domain.GeoPoint;
 import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Usr;
+import ru.hackaton.logistic.domain.enums.OrderJoinStatus;
 import ru.hackaton.logistic.repository.OrderRepository;
 import ru.hackaton.logistic.repository.UsrRepository;
 import ru.hackaton.logistic.request.OrderSaveRequest;
@@ -55,6 +56,16 @@ public class OrderService {
 
     public List<Order> getAllOrders(Long userId) {
         List<Order> orders = getAllOrders();
-        return orders.stream().filter(o -> o.getUsr() != null && userId.equals(o.getUsr().getId())).collect(Collectors.toList());
+        orders = orders.stream().filter(o -> o.getUsr() != null && userId.equals(o.getUsr().getId())).collect(Collectors.toList());
+        return orders.stream().filter(o ->
+            !(OrderJoinStatus.ACCEPTED.equals(o.getJoinStatus()) || OrderJoinStatus.PENDING.equals(o.getJoinStatus()))
+        ).collect(Collectors.toList());
+    }
+
+    public List<Order> getOrdersByRoute(Long routeId){
+        List<Order> orders = getAllOrders();
+        return orders.stream().filter(o ->
+                (o.getRoute() != null) && (routeId.equals(o.getRoute().getId()))
+        ).collect(Collectors.toList());
     }
 }

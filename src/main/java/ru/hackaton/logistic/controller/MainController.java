@@ -1,20 +1,19 @@
 package ru.hackaton.logistic.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hackaton.logistic.domain.Car;
 import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Route;
 import ru.hackaton.logistic.domain.Usr;
-import ru.hackaton.logistic.request.CarSaveRequest;
-import ru.hackaton.logistic.request.LoginRequest;
-import ru.hackaton.logistic.request.OrderSaveRequest;
-import ru.hackaton.logistic.request.RouteSaveRequest;
+import ru.hackaton.logistic.request.*;
 import ru.hackaton.logistic.service.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class MainController {
@@ -22,6 +21,7 @@ public class MainController {
     private final RouteService routeService;
     private final CarService carService;
     private final UsrService usrService;
+    private final OrderRouteJoinService orderRouteJoinService;
 
     @PostMapping("/order")
     public Long save_order(@RequestHeader("user_id") Long user_id, @RequestBody OrderSaveRequest order){
@@ -29,8 +29,12 @@ public class MainController {
     }
 
     @GetMapping("/order_list")
-    public List<Order> getAllOrders(){
-        return orderService.getAllOrders();
+    public List<Order> getAllOrders(@RequestParam Long routeId){
+        if (routeId == null){
+            return orderService.getAllOrders();
+        } else {
+            return orderService.getOrdersByRoute(routeId);
+        }
     }
 
     @GetMapping("/my_order_list")
@@ -66,5 +70,11 @@ public class MainController {
     @PostMapping("/login")
     public Usr login(@RequestBody LoginRequest loginRequest){
         return usrService.login(loginRequest);
+    }
+
+    @PostMapping("/join_order")
+    public void joinOrder(@RequestBody OrderRouteJoinRequest orderRouteJoinRequest){
+        log.info(orderRouteJoinRequest.toString());
+        orderRouteJoinService.joinOrder(orderRouteJoinRequest);
     }
 }
