@@ -1,20 +1,14 @@
 [
   {
-  "id": 1,
-  "username": "u",
-  "password": "p",
-  "name": "SuperOrderUser"
-},
-  {
-    "id": 2,
-    "username": "p",
-    "password": "u",
-    "name": "SuperRouteUser"
+    "username": "u",
+    "password": "p",
+    "name": "Алексей",
+    "companyName": "Почта России"
   },
   {
-    "id": 23,
     "username": "p",
     "password": "u",
-    "name": "SuperRouteUser2"
+    "name": "Константин",
+    "companyName": "DHL"
   }
-  ]
+]

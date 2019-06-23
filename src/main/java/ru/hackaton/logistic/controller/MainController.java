@@ -32,12 +32,13 @@ public class MainController {
     }
 
     @GetMapping("/order_list")
+    public List<Order> getAllOrders(){
+        return orderService.getAllOrders();
+    }
+
+    @GetMapping("/order_list_by_route")
     public List<Order> getAllOrders(@RequestParam Long routeId){
-        if (routeId == null){
-            return orderService.getAllOrders();
-        } else {
-            return orderService.getOrdersByRoute(routeId);
-        }
+        return orderService.getOrdersByRoute(routeId);
     }
 
     @GetMapping("/my_order_list")
@@ -107,6 +108,7 @@ public class MainController {
         List<Order> orders = orderService.getAcceptedOrdersByRoute(routeId);
         List<GeoPoint> startPoints = orders.stream().map(Order::getLoadingPoint).collect(Collectors.toList());
         List<GeoPoint> finishPoints = orders.stream().map(Order::getDestinationPoint).collect(Collectors.toList());
+        finishPoints.add(route.getDestinationPoint());
         return commisVoyageurTaskService.getPath(startPoint, startPoints, finishPoints);
     }
 }

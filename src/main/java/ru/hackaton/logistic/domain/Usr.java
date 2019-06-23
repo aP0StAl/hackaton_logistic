@@ -20,4 +20,5 @@ public class Usr {
     private String username;
     private String password;
     private String name;
+    private String companyName;
 }
