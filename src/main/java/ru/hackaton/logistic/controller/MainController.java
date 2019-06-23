@@ -22,6 +22,7 @@ public class MainController {
     private final CarService carService;
     private final UsrService usrService;
     private final OrderRouteJoinService orderRouteJoinService;
+    private final SetJoinStatusService setJoinStatusService;
 
     @PostMapping("/order")
     public Long save_order(@RequestHeader("user_id") Long user_id, @RequestBody OrderSaveRequest order){
@@ -76,5 +77,10 @@ public class MainController {
     public void joinOrder(@RequestBody OrderRouteJoinRequest orderRouteJoinRequest){
         log.info(orderRouteJoinRequest.toString());
         orderRouteJoinService.joinOrder(orderRouteJoinRequest);
+    }
+
+    @PutMapping("/order_status")
+    public void acceptOrder(@RequestBody SetJoinStatusRequest joinStatusRequest){
+        setJoinStatusService.setStatus(joinStatusRequest);
     }
 }

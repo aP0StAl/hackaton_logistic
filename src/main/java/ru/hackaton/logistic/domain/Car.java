@@ -20,7 +20,6 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long ownerId;
     private Double maxWeight;
     private Double maxVolume;
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "maxWeight": 5000,
+    "maxVolume": 5
+  },
+  {
+    "maxWeight": 10000,
+    "maxVolume": 10
+  },
+  {
+    "maxWeight": 15000,
+    "maxVolume": 15
+  },
+  {
+    "maxWeight": 20000,
+    "maxVolume": 20
+  },
+  {
+    "maxWeight": 25000,
+    "maxVolume": 25
+  }
+]

@@ -3,9 +3,11 @@ package ru.hackaton.logistic.crutch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.hackaton.logistic.domain.Car;
 import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Route;
 import ru.hackaton.logistic.domain.Usr;
+import ru.hackaton.logistic.repository.CarRepository;
 import ru.hackaton.logistic.repository.OrderRepository;
 import ru.hackaton.logistic.repository.RouteRepository;
 import ru.hackaton.logistic.repository.UsrRepository;
@@ -20,12 +22,30 @@ public class DBInit {
     private final OrderRepository orderRepository;
     private final RouteRepository routeRepository;
     private final UsrRepository usrRepository;
+    private final CarRepository carRepository;
 
     //@PostConstruct
     public void initAll(){
-        initOrders();
-        initRoutes();
-        initUsers();
+        //initCars();
+        //initOrders();
+        //initRoutes();
+        //initUsers();
+    }
+
+    private void initCars() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource("jsons/cars.json").getFile());
+            Car[] cars = mapper.readValue(file, Car[].class);
+            for (Car car : cars) {
+                carRepository.save(car);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     private void initUsers() {
@@ -42,7 +62,6 @@ public class DBInit {
         } catch (NullPointerException e){
             e.printStackTrace();
         }
-
     }
 
     private void initOrders(){
