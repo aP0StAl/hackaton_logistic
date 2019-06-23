@@ -22,4 +22,5 @@ public class Car {
     private Long id;
     private Double maxWeight;
     private Double maxVolume;
+    private String name;
 }

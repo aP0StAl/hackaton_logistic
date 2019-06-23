@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hackaton.logistic.domain.Car;
-import ru.hackaton.logistic.domain.Order;
-import ru.hackaton.logistic.domain.Route;
-import ru.hackaton.logistic.domain.Usr;
+import ru.hackaton.logistic.domain.*;
 import ru.hackaton.logistic.request.*;
 import ru.hackaton.logistic.service.*;
 
@@ -90,4 +87,12 @@ public class MainController {
         return getRouteListForOrderService.getFittingRoutes(orderId);
     }
 
+    @PutMapping("/switch_route")
+    public void switchRoute(@RequestParam SwitchRouteRequest switchRouteRequest){
+        if(switchRouteRequest.getClose()){
+            routeService.setCloseRoute(switchRouteRequest.getRouteId());
+        } else {
+            routeService.setOpenRoute(switchRouteRequest.getRouteId());
+        }
+    }
 }

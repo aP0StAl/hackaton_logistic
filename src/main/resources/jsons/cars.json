@@ -1,22 +1,27 @@
 [
   {
     "maxWeight": 5000,
-    "maxVolume": 5
+    "maxVolume": 5,
+    "name": "Волга"
   },
   {
     "maxWeight": 10000,
-    "maxVolume": 10
+    "maxVolume": 10,
+    "name": "Газель"
   },
   {
     "maxWeight": 15000,
-    "maxVolume": 15
+    "maxVolume": 15,
+    "name": "MAN"
   },
   {
     "maxWeight": 20000,
-    "maxVolume": 20
+    "maxVolume": 20,
+    "name": "Камаз"
   },
   {
     "maxWeight": 25000,
-    "maxVolume": 25
+    "maxVolume": 25,
+    "name": "Tesla"
   }
 ]
