@@ -14,7 +14,10 @@ public class CommisVoyageurTaskService {
     private final DistanceService distanceService;
     private static double INF = 1e9 + 7;
 
-    public ArrayList<GeoPoint> getPath(GeoPoint start, List<GeoPoint> points, List<GeoPoint> points2) {
+    public ArrayList<GeoPoint> getPath(GeoPoint start, List<GeoPoint> points1, List<GeoPoint> points2) {
+        ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
+        points.add(start);
+        points.addAll(points1);
         points.addAll(points2);
 
         Map<GeoPoint, Map<GeoPoint, Double>> distanceMap = distanceService.getDistanceMap(points);
