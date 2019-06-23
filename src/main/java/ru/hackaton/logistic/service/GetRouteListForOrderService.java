@@ -47,8 +47,9 @@ public class GetRouteListForOrderService {
     }
 
     private boolean isFitting(Order ord, Route rt) {
-        return (distanceService.getDistance(ord.getLoadingPoint(), rt.getLoadingPoint()) < rt.getDeliveryRadius()) &&
-                (distanceService.getDistance(ord.getDestinationPoint(), rt.getDestinationPoint()) < rt.getDeliveryRadius());
+        double dr = rt.getDeliveryRadius() == null ? 15000.0 : rt.getDeliveryRadius();
+        return (distanceService.getDistance(ord.getLoadingPoint(), rt.getLoadingPoint()) < dr) &&
+                (distanceService.getDistance(ord.getDestinationPoint(), rt.getDestinationPoint()) < dr);
     }
 
 }

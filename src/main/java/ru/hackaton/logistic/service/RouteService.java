@@ -109,6 +109,10 @@ public class RouteService {
         return jointOrders;
     }
 
+    public Route getById(Long routeId){
+        return routeRepository.findById(routeId).orElse(null);
+    }
+
     public List<Route> getAllRoutes() {
         return routeRepository.findAll();
     }

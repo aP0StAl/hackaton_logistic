@@ -9,7 +9,9 @@ import ru.hackaton.logistic.request.*;
 import ru.hackaton.logistic.response.RouteWrapper;
 import ru.hackaton.logistic.service.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -22,6 +24,7 @@ public class MainController {
     private final OrderRouteJoinService orderRouteJoinService;
     private final SetJoinStatusService setJoinStatusService;
     private final GetRouteListForOrderService getRouteListForOrderService;
+    private final CommisVoyageurTaskService commisVoyageurTaskService;
 
     @PostMapping("/order")
     public Long save_order(@RequestHeader("user_id") Long user_id, @RequestBody OrderSaveRequest order){
@@ -95,5 +98,15 @@ public class MainController {
         } else {
             routeService.setOpenRoute(switchRouteRequest.getRouteId());
         }
+    }
+
+    @GetMapping("/best_routing")
+    public List<GeoPoint> getBestRouting(@RequestParam Long routeId){
+        Route route = routeService.getById(routeId);
+        GeoPoint startPoint = route.getLoadingPoint();
+        List<Order> orders = orderService.getAcceptedOrdersByRoute(routeId);
+        List<GeoPoint> startPoints = orders.stream().map(Order::getLoadingPoint).collect(Collectors.toList());
+        List<GeoPoint> finishPoints = orders.stream().map(Order::getDestinationPoint).collect(Collectors.toList());
+        return commisVoyageurTaskService.getPath(startPoint, startPoints, finishPoints);
     }
 }
