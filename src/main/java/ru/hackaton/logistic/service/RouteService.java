@@ -3,11 +3,14 @@ package ru.hackaton.logistic.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hackaton.logistic.domain.*;
+import ru.hackaton.logistic.domain.enums.OrderJoinStatus;
 import ru.hackaton.logistic.repository.CarRepository;
+import ru.hackaton.logistic.repository.OrderRepository;
 import ru.hackaton.logistic.repository.RouteRepository;
 import ru.hackaton.logistic.repository.UsrRepository;
 import ru.hackaton.logistic.request.RouteSaveRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +20,7 @@ public class RouteService {
     private final RouteRepository routeRepository;
     private final CarRepository carRepository;
     private final UsrRepository usrRepository;
+    private final OrderRepository orderRepository;
 
     public Route saveRoute(RouteSaveRequest route, Long userId) {
 
@@ -56,6 +60,51 @@ public class RouteService {
                 .build();
 
         return routeRepository.save(r);
+    }
+
+    public void setOpenRoute(Long routeId) {
+        Route rt = routeRepository.findById(routeId).orElse(null);
+        rt.setIsOpen(true);
+        routeRepository.save(rt);
+    }
+
+    public void setCloseRoute(Long routeId) {
+        Route rt = routeRepository.findById(routeId).orElse(null);
+        rt.setIsOpen(false);
+        routeRepository.save(rt);
+
+        List<Order> orders = orderRepository.findAll();
+
+        for (Order ord : orders) {
+            if (rt.equals(ord.getRoute()) && ord.getJoinStatus() == OrderJoinStatus.PENDING) {
+                ord.setJoinStatus(OrderJoinStatus.DECLINED);
+                orderRepository.save(ord);
+            }
+        }
+    }
+
+    public ArrayList<Order> getJointOrdersForRoute(Long routeId) { //Возвращает список принятых и ожидающих принятия заявок
+        Route rt = routeRepository.findById(routeId).orElse(null);
+
+        List<Order> orders = orderRepository.findAll();
+        ArrayList<Order> acceptedOrders = new ArrayList<Order>();
+        ArrayList<Order> pendingOrders = new ArrayList<Order>();
+        ArrayList<Order> jointOrders = new ArrayList<Order>();
+
+        for (Order ord : orders) {
+            if (rt.equals(ord.getRoute())) {
+                if (ord.getJoinStatus() == OrderJoinStatus.ACCEPTED) {
+                    acceptedOrders.add(ord);
+                } else if (ord.getJoinStatus() == OrderJoinStatus.PENDING) {
+                    pendingOrders.add(ord);
+                }
+            }
+        }
+
+        jointOrders.addAll(acceptedOrders);
+        jointOrders.addAll(pendingOrders);
+
+        return jointOrders;
     }
 
     public List<Route> getAllRoutes() {
