@@ -19,5 +19,5 @@ public class Usr {
     private Long id;
     private String username;
     private String password;
-    private String Name;
+    private String name;
 }

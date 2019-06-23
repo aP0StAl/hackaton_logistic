@@ -1,10 +1,12 @@
 package ru.hackaton.logistic.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hackaton.logistic.domain.Car;
 import ru.hackaton.logistic.domain.Order;
 import ru.hackaton.logistic.domain.Route;
+import ru.hackaton.logistic.domain.Usr;
 import ru.hackaton.logistic.request.CarSaveRequest;
 import ru.hackaton.logistic.request.LoginRequest;
 import ru.hackaton.logistic.request.OrderSaveRequest;
@@ -57,7 +59,7 @@ public class MainController {
     }
 
     @PostMapping("/login")
-    public Long login(LoginRequest loginRequest){
+    public Usr login(@RequestBody LoginRequest loginRequest){
         return usrService.login(loginRequest);
     }
 }

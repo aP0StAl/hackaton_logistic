@@ -55,6 +55,6 @@ public class OrderService {
 
     public List<Order> getAllOrders(Long userId) {
         List<Order> orders = getAllOrders();
-        return orders.stream().filter(o -> userId.equals(o.getUsr().getId())).collect(Collectors.toList());
+        return orders.stream().filter(o -> o.getUsr() != null && userId.equals(o.getUsr().getId())).collect(Collectors.toList());
     }
 }
